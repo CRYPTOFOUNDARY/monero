@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// % copyleft %
 // 
 // All rights reserved.
 // 
@@ -33,8 +33,8 @@
 #include "cryptonote_protocol/cryptonote_protocol_handler.h"
 #include "misc_log_ex.h"
 
-#undef MONERO_DEFAULT_LOG_CATEGORY
-#define MONERO_DEFAULT_LOG_CATEGORY "daemon"
+#undef FLAKECHAIN_DEFAULT_LOG_CATEGORY
+#define FLAKECHAIN_DEFAULT_LOG_CATEGORY "daemon"
 
 namespace daemonize
 {

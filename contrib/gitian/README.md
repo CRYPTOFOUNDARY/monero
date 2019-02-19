@@ -1,9 +1,9 @@
 Gitian building
 ================
 
-*Setup instructions for a Gitian build of Monero using a VM or physical system.*
+*Setup instructions for a Gitian build of FlakeChain using a VM or physical system.*
 
-Gitian is the deterministic build process that is used to build the Monero CLI
+Gitian is the deterministic build process that is used to build the FlakeChain CLI
 executables. It provides a way to be reasonably sure that the
 executables are really built from the git source. It also makes sure that
 the same, tested dependencies are used and statically built into the executable.
@@ -74,7 +74,7 @@ Initial Gitian Setup
 The `gitian-build.py` script will checkout different release tags, so it's best to copy it:
 
 ```bash
-cp monero/contrib/gitian/gitian-build.py .
+cp flakechain/contrib/gitian/gitian-build.py .
 ```
 
 Setup the required environment, you only need to do this once:
@@ -92,7 +92,7 @@ fork the gitian.sigs repository and clone it on your host machine,
 or pass the signed assert file back to your build machine.
 
 ```
-git clone git@github.com:monero-project/gitian.sigs.git
+git clone git@github.com:flakechain-project/gitian.sigs.git
 git remote add fluffypony git@github.com:fluffypony/gitian.sigs.git
 ```
 
@@ -111,13 +111,13 @@ If you do detached, offline signing, you need to copy these uncommited changes t
 ```
 export NAME=fluffypony
 export VERSION=v0.14.0
-gpg --output $VERSION-linux/$NAME/monero-linux-$VERSION-build.assert.sig --detach-sign $VERSION-linux/$NAME/monero-linux-$VERSION-build.assert
-gpg --output $VERSION-osx-unsigned/$NAME/monero-osx-$VERSION-build.assert.sig --detach-sign $VERSION-osx-unsigned/$NAME/monero-osx-$VERSION-build.assert
-gpg --output $VERSION-win-unsigned/$NAME/monero-win-$VERSION-build.assert.sig --detach-sign $VERSION-win-unsigned/$NAME/monero-win-$VERSION-build.assert
+gpg --output $VERSION-linux/$NAME/flakechain-linux-$VERSION-build.assert.sig --detach-sign $VERSION-linux/$NAME/flakechain-linux-$VERSION-build.assert
+gpg --output $VERSION-osx-unsigned/$NAME/flakechain-osx-$VERSION-build.assert.sig --detach-sign $VERSION-osx-unsigned/$NAME/flakechain-osx-$VERSION-build.assert
+gpg --output $VERSION-win-unsigned/$NAME/flakechain-win-$VERSION-build.assert.sig --detach-sign $VERSION-win-unsigned/$NAME/flakechain-win-$VERSION-build.assert
 ```
 
 Make a pull request (both the `.assert` and `.assert.sig` files) to the
-[monero-project/gitian.sigs](https://github.com/monero-project/gitian.sigs/) repository:
+[flakechain-project/gitian.sigs](https://github.com/flakechain-project/gitian.sigs/) repository:
 
 ```
 git checkout -b v0.14.0
@@ -126,8 +126,8 @@ git push --set-upstream $NAME v0.14.0
 ```
 
 ```bash
-    gpg --detach-sign ${VERSION}-linux/${SIGNER}/monero-linux-*-build.assert
-    gpg --detach-sign ${VERSION}-win-unsigned/${SIGNER}/monero-win-*-build.assert
-    gpg --detach-sign ${VERSION}-osx-unsigned/${SIGNER}/monero-osx-*-build.assert
+    gpg --detach-sign ${VERSION}-linux/${SIGNER}/flakechain-linux-*-build.assert
+    gpg --detach-sign ${VERSION}-win-unsigned/${SIGNER}/flakechain-win-*-build.assert
+    gpg --detach-sign ${VERSION}-osx-unsigned/${SIGNER}/flakechain-osx-*-build.assert
 ```
 

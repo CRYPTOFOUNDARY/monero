@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// % copyleft %
 // 
 // All rights reserved.
 // 
@@ -51,8 +51,8 @@ using namespace epee;
 #include "p2p/net_node.h"
 #include "version.h"
 
-#undef MONERO_DEFAULT_LOG_CATEGORY
-#define MONERO_DEFAULT_LOG_CATEGORY "daemon.rpc"
+#undef FLAKECHAIN_DEFAULT_LOG_CATEGORY
+#define FLAKECHAIN_DEFAULT_LOG_CATEGORY "daemon.rpc"
 
 #define MAX_RESTRICTED_FAKE_OUTS_COUNT 40
 #define MAX_RESTRICTED_GLOBAL_FAKE_OUTS_COUNT 5000
@@ -216,7 +216,7 @@ namespace cryptonote
     }
     res.database_size = restricted ? 0 : m_core.get_blockchain_storage().get_db().get_database_size();
     res.update_available = restricted ? false : m_core.is_update_available();
-    res.version = restricted ? "" : MONERO_VERSION;
+    res.version = restricted ? "" : FLAKECHAIN_VERSION;
     return true;
   }
   //------------------------------------------------------------------------------------------------------------------------------
@@ -1678,7 +1678,7 @@ namespace cryptonote
     }
     res.database_size = restricted ? 0 : m_core.get_blockchain_storage().get_db().get_database_size();
     res.update_available = restricted ? false : m_core.is_update_available();
-    res.version = restricted ? "" : MONERO_VERSION;
+    res.version = restricted ? "" : FLAKECHAIN_VERSION;
     return true;
   }
   //------------------------------------------------------------------------------------------------------------------------------
@@ -1993,7 +1993,7 @@ namespace cryptonote
   bool core_rpc_server::on_update(const COMMAND_RPC_UPDATE::request& req, COMMAND_RPC_UPDATE::response& res, const connection_context *ctx)
   {
     PERF_TIMER(on_update);
-    static const char software[] = "monero";
+    static const char software[] = "flakechain";
 #ifdef BUILD_TAG
     static const char buildtag[] = BOOST_PP_STRINGIZE(BUILD_TAG);
     static const char subdir[] = "cli";
@@ -2014,7 +2014,7 @@ namespace cryptonote
       res.status = "Error checking for updates";
       return true;
     }
-    if (tools::vercmp(version.c_str(), MONERO_VERSION) <= 0)
+    if (tools::vercmp(version.c_str(), FLAKECHAIN_VERSION) <= 0)
     {
       res.update = false;
       res.status = CORE_RPC_STATUS_OK;

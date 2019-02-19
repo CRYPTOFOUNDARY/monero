@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018, The Monero Project
+// % copyleft %
 // 
 // All rights reserved.
 // 
@@ -43,8 +43,8 @@ extern "C"
 #include "multiexp.h"
 #include "bulletproofs.h"
 
-#undef MONERO_DEFAULT_LOG_CATEGORY
-#define MONERO_DEFAULT_LOG_CATEGORY "bulletproofs"
+#undef FLAKECHAIN_DEFAULT_LOG_CATEGORY
+#define FLAKECHAIN_DEFAULT_LOG_CATEGORY "bulletproofs"
 
 //#define DEBUG_BP
 

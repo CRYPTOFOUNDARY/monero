@@ -1,6 +1,6 @@
-// Word list created by Monero contributor sammy007
+// Word list created by FlakeChain contributor sammy007
 // 
-// Copyright (c) 2014-2018, The Monero Project
+// % copyleft %
 // 
 // All rights reserved.
 // 

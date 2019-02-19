@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018, The Monero Project
+// % copyleft %
 // 
 // All rights reserved.
 // 
@@ -35,8 +35,8 @@
 namespace hw {
   namespace io {
  
-    #undef MONERO_DEFAULT_LOG_CATEGORY
-    #define MONERO_DEFAULT_LOG_CATEGORY "device.io"
+    #undef FLAKECHAIN_DEFAULT_LOG_CATEGORY
+    #define FLAKECHAIN_DEFAULT_LOG_CATEGORY "device.io"
  
     #define ASSERT_X(exp,msg)    CHECK_AND_ASSERT_THROW_MES(exp, msg); 
 

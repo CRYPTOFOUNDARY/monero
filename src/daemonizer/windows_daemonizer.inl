@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// % copyleft %
 // 
 // All rights reserved.
 // 
@@ -176,7 +176,7 @@ namespace daemonizer
     }
     else // interactive
     {
-      //LOG_PRINT_L0("Monero '" << MONERO_RELEASE_NAME << "' (v" << MONERO_VERSION_FULL);
+      //LOG_PRINT_L0("FlakeChain '" << FLAKECHAIN_RELEASE_NAME << "' (v" << FLAKECHAIN_VERSION_FULL);
       return executor.run_interactive(vm);
     }
 

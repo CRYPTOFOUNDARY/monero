@@ -43,8 +43,8 @@
 #include <random>
 #include <chrono>
 
-#undef MONERO_DEFAULT_LOG_CATEGORY
-#define MONERO_DEFAULT_LOG_CATEGORY "net"
+#undef FLAKECHAIN_DEFAULT_LOG_CATEGORY
+#define FLAKECHAIN_DEFAULT_LOG_CATEGORY "net"
 
 #ifndef MIN_BYTES_WANTED
 #define MIN_BYTES_WANTED	512

@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018, The Monero Project
+// % copyleft %
 //
 // All rights reserved.
 //
@@ -27,8 +27,8 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#ifndef MONERO_DEVICE_TREZOR_H
-#define MONERO_DEVICE_TREZOR_H
+#ifndef FLAKECHAIN_DEVICE_TREZOR_H
+#define FLAKECHAIN_DEVICE_TREZOR_H
 
 
 #include <cstddef>
@@ -57,7 +57,7 @@ namespace trezor {
    */
   class device_trezor : public hw::trezor::device_trezor_base, public hw::device_cold {
     protected:
-      void transaction_pre_check(std::shared_ptr<messages::monero::MoneroTransactionInitRequest> init_msg);
+      void transaction_pre_check(std::shared_ptr<messages::flakechain::FlakeChainTransactionInitRequest> init_msg);
       void transaction_check(const protocol::tx::TData & tdata, const hw::tx_aux_data & aux_data);
 
     public:
@@ -88,14 +88,14 @@ namespace trezor {
       /**
        * Get address. Throws.
        */
-      std::shared_ptr<messages::monero::MoneroAddress> get_address(
+      std::shared_ptr<messages::flakechain::FlakeChainAddress> get_address(
           const boost::optional<std::vector<uint32_t>> & path = boost::none,
           const boost::optional<cryptonote::network_type> & network_type = boost::none);
 
       /**
        * Get watch key from device. Throws.
        */
-      std::shared_ptr<messages::monero::MoneroWatchKey> get_view_key(
+      std::shared_ptr<messages::flakechain::FlakeChainWatchKey> get_view_key(
           const boost::optional<std::vector<uint32_t>> & path = boost::none,
           const boost::optional<cryptonote::network_type> & network_type = boost::none);
 
@@ -128,4 +128,4 @@ namespace trezor {
 
 }
 }
-#endif //MONERO_DEVICE_TREZOR_H
+#endif //FLAKECHAIN_DEVICE_TREZOR_H

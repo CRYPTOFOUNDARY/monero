@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2018, The Monero Project
+# % copyleft %
 #
 # All rights reserved.
 #
@@ -61,9 +61,9 @@ set(cryptonote_basic_private_headers
   tx_extra.h
   verification_context.h)
 
-monero_private_headers(cryptonote_basic
+flakechain_private_headers(cryptonote_basic
   ${cryptonote_basic_private_headers})
-monero_add_library(cryptonote_basic
+flakechain_add_library(cryptonote_basic
   ${cryptonote_basic_sources}
   ${cryptonote_basic_headers}
   ${cryptonote_basic_private_headers})

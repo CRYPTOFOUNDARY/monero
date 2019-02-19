@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2017, The Monero Project
+# % copyleft %
 #
 # All rights reserved.
 #
@@ -59,10 +59,10 @@ endif()
 set(device_private_headers)
 
 
-monero_private_headers(device
+flakechain_private_headers(device
   ${device_private_headers})
 
-monero_add_library(device
+flakechain_add_library(device
   ${device_sources}
   ${device_headers}
   ${device_private_headers})

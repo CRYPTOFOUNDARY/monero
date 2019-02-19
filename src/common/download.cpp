@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018, The Monero Project
+// % copyleft %
 // 
 // All rights reserved.
 // 
@@ -34,8 +34,8 @@
 #include "net/http_client.h"
 #include "download.h"
 
-#undef MONERO_DEFAULT_LOG_CATEGORY
-#define MONERO_DEFAULT_LOG_CATEGORY "net.dl"
+#undef FLAKECHAIN_DEFAULT_LOG_CATEGORY
+#define FLAKECHAIN_DEFAULT_LOG_CATEGORY "net.dl"
 
 namespace tools
 {

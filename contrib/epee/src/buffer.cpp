@@ -1,4 +1,4 @@
-// Copyright (c) 2018, The Monero Project
+// % copyleft %
 // 
 // All rights reserved.
 // 
@@ -29,8 +29,8 @@
 #include <string.h>
 #include "net/buffer.h"
 
-#undef MONERO_DEFAULT_LOG_CATEGORY
-#define MONERO_DEFAULT_LOG_CATEGORY "net.buffer"
+#undef FLAKECHAIN_DEFAULT_LOG_CATEGORY
+#define FLAKECHAIN_DEFAULT_LOG_CATEGORY "net.buffer"
 
 namespace epee
 {

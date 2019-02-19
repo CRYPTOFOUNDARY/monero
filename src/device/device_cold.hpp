@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018, The Monero Project
+// % copyleft %
 //
 // All rights reserved.
 //
@@ -27,8 +27,8 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#ifndef MONERO_DEVICE_COLD_H
-#define MONERO_DEVICE_COLD_H
+#ifndef FLAKECHAIN_DEVICE_COLD_H
+#define FLAKECHAIN_DEVICE_COLD_H
 
 #include "wallet/wallet2.h"
 #include <boost/function.hpp>
@@ -68,4 +68,4 @@ namespace hw {
   };
 }
 
-#endif //MONERO_DEVICE_COLD_H
+#endif //FLAKECHAIN_DEVICE_COLD_H

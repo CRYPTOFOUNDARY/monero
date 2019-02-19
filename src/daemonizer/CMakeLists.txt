@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2018, The Monero Project
+# % copyleft %
 #
 # All rights reserved.
 #
@@ -58,9 +58,9 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   add_definitions(-DDEBUG_TMPDIR_LOG=1)
 endif()
 
-monero_private_headers(daemonizer
+flakechain_private_headers(daemonizer
   ${daemonizer_private_headers})
-monero_add_library(daemonizer
+flakechain_add_library(daemonizer
   ${daemonizer_sources}
   ${daemonizer_headers}
   ${daemonizer_private_headers})

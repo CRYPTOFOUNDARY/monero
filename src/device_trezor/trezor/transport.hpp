@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018, The Monero Project
+// % copyleft %
 //
 // All rights reserved.
 //
@@ -27,8 +27,8 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#ifndef MONERO_TRANSPORT_H
-#define MONERO_TRANSPORT_H
+#ifndef FLAKECHAIN_TRANSPORT_H
+#define FLAKECHAIN_TRANSPORT_H
 
 
 #include <boost/asio.hpp>
@@ -51,7 +51,7 @@
 #include "messages/messages.pb.h"
 #include "messages/messages-common.pb.h"
 #include "messages/messages-management.pb.h"
-#include "messages/messages-monero.pb.h"
+#include "messages/messages-flakechain.pb.h"
 
 namespace hw {
 namespace trezor {
@@ -78,7 +78,7 @@ namespace trezor {
     t_serialize(out_struct, req_param);
 
     http::fields_list additional_params;
-    additional_params.push_back(std::make_pair("Origin","https://monero.trezor.io"));
+    additional_params.push_back(std::make_pair("Origin","https://flakechain.trezor.io"));
     additional_params.push_back(std::make_pair("Content-Type","application/json; charset=utf-8"));
 
     const http::http_response_info* pri = nullptr;
@@ -395,4 +395,4 @@ namespace trezor {
 }}
 
 
-#endif //MONERO_TRANSPORT_H
+#endif //FLAKECHAIN_TRANSPORT_H

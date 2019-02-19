@@ -22,7 +22,7 @@ try:
         "messages.proto",
         "messages-common.proto",
         "messages-management.proto",
-        "messages-monero.proto",
+        "messages-flakechain.proto",
     ]
     proto_srcs = [os.path.join(TREZOR_COMMON, "protob", x) for x in selected]
     exec_args = [

@@ -1,3 +1,4 @@
+external/spdlog
 .DS_Store
 /doc
 /build

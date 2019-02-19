@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018, The Monero Project
+// % copyleft %
 //
 // All rights reserved.
 //
@@ -108,7 +108,7 @@ namespace ki {
 
   bool key_image_data(wallet_shim * wallet,
                       const std::vector<tools::wallet2::transfer_details> & transfers,
-                      std::vector<MoneroTransferDetails> & res)
+                      std::vector<FlakeChainTransferDetails> & res)
   {
     for(auto & td : transfers){
       ::crypto::public_key tx_pub_key = wallet->get_tx_pub_key_from_received_outs(td);
@@ -128,7 +128,7 @@ namespace ki {
     return true;
   }
 
-  std::string compute_hash(const MoneroTransferDetails & rr){
+  std::string compute_hash(const FlakeChainTransferDetails & rr){
     KECCAK_CTX kck;
     uint8_t md[32];
 
@@ -149,11 +149,11 @@ namespace ki {
     return std::string(reinterpret_cast<const char*>(md), sizeof(md));
   }
 
-  void generate_commitment(std::vector<MoneroTransferDetails> & mtds,
+  void generate_commitment(std::vector<FlakeChainTransferDetails> & mtds,
                            const std::vector<tools::wallet2::transfer_details> & transfers,
-                           std::shared_ptr<messages::monero::MoneroKeyImageExportInitRequest> & req)
+                           std::shared_ptr<messages::flakechain::FlakeChainKeyImageExportInitRequest> & req)
   {
-    req = std::make_shared<messages::monero::MoneroKeyImageExportInitRequest>();
+    req = std::make_shared<messages::flakechain::FlakeChainKeyImageExportInitRequest>();
 
     KECCAK_CTX kck;
     uint8_t final_hash[32];
@@ -165,7 +165,7 @@ namespace ki {
     }
     keccak_finish(&kck, final_hash);
 
-    req = std::make_shared<messages::monero::MoneroKeyImageExportInitRequest>();
+    req = std::make_shared<messages::flakechain::FlakeChainKeyImageExportInitRequest>();
     req->set_hash(std::string(reinterpret_cast<const char*>(final_hash), 32));
     req->set_num(transfers.size());
 
@@ -190,18 +190,18 @@ namespace ki {
 // Cold transaction signing
 namespace tx {
 
-  void translate_address(MoneroAccountPublicAddress * dst, const cryptonote::account_public_address * src){
+  void translate_address(FlakeChainAccountPublicAddress * dst, const cryptonote::account_public_address * src){
     dst->set_view_public_key(key_to_string(src->m_view_public_key));
     dst->set_spend_public_key(key_to_string(src->m_spend_public_key));
   }
 
-  void translate_dst_entry(MoneroTransactionDestinationEntry * dst, const cryptonote::tx_destination_entry * src){
+  void translate_dst_entry(FlakeChainTransactionDestinationEntry * dst, const cryptonote::tx_destination_entry * src){
     dst->set_amount(src->amount);
     dst->set_is_subaddress(src->is_subaddress);
     translate_address(dst->mutable_addr(), &(src->addr));
   }
 
-  void translate_src_entry(MoneroTransactionSourceEntry * dst, const cryptonote::tx_source_entry * src){
+  void translate_src_entry(FlakeChainTransactionSourceEntry * dst, const cryptonote::tx_source_entry * src){
     for(auto & cur : src->outputs){
       auto out = dst->add_outputs();
       out->set_idx(cur.first);
@@ -221,19 +221,19 @@ namespace tx {
     translate_klrki(dst->mutable_multisig_klrki(), &(src->multisig_kLRki));
   }
 
-  void translate_klrki(MoneroMultisigKLRki * dst, const rct::multisig_kLRki * src){
+  void translate_klrki(FlakeChainMultisigKLRki * dst, const rct::multisig_kLRki * src){
     dst->set_k(key_to_string(src->k));
     dst->set_l(key_to_string(src->L));
     dst->set_r(key_to_string(src->R));
     dst->set_ki(key_to_string(src->ki));
   }
 
-  void translate_rct_key(MoneroRctKey * dst, const rct::ctkey * src){
+  void translate_rct_key(FlakeChainRctKey * dst, const rct::ctkey * src){
     dst->set_dest(key_to_string(src->dest));
     dst->set_commitment(key_to_string(src->mask));
   }
 
-  std::string hash_addr(const MoneroAccountPublicAddress * addr, boost::optional<uint64_t> amount, boost::optional<bool> is_subaddr){
+  std::string hash_addr(const FlakeChainAccountPublicAddress * addr, boost::optional<uint64_t> amount, boost::optional<bool> is_subaddr){
     return hash_addr(addr->spend_public_key(), addr->view_public_key(), amount, is_subaddr);
   }
 
@@ -385,7 +385,7 @@ namespace tx {
     }
   }
 
-  std::shared_ptr<messages::monero::MoneroTransactionInitRequest> Signer::step_init(){
+  std::shared_ptr<messages::flakechain::FlakeChainTransactionInitRequest> Signer::step_init(){
     // extract payment ID from construction data
     auto & tsx_data = m_ct.tsx_data;
     auto & tx = cur_tx();
@@ -430,30 +430,30 @@ namespace tx {
     tsx_data.set_fee(static_cast<google::protobuf::uint64>(fee));
     this->extract_payment_id();
 
-    auto init_req = std::make_shared<messages::monero::MoneroTransactionInitRequest>();
+    auto init_req = std::make_shared<messages::flakechain::FlakeChainTransactionInitRequest>();
     init_req->set_version(0);
     init_req->mutable_tsx_data()->CopyFrom(tsx_data);
     return init_req;
   }
 
-  void Signer::step_init_ack(std::shared_ptr<const messages::monero::MoneroTransactionInitAck> ack){
+  void Signer::step_init_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionInitAck> ack){
     m_ct.in_memory = false;
     if (ack->has_rsig_data()){
-      m_ct.rsig_param = std::make_shared<MoneroRsigData>(ack->rsig_data());
+      m_ct.rsig_param = std::make_shared<FlakeChainRsigData>(ack->rsig_data());
     }
 
     assign_from_repeatable(&(m_ct.tx_out_entr_hmacs), ack->hmacs().begin(), ack->hmacs().end());
   }
 
-  std::shared_ptr<messages::monero::MoneroTransactionSetInputRequest> Signer::step_set_input(size_t idx){
+  std::shared_ptr<messages::flakechain::FlakeChainTransactionSetInputRequest> Signer::step_set_input(size_t idx){
     CHECK_AND_ASSERT_THROW_MES(idx < cur_tx().sources.size(), "Invalid source index");
     m_ct.cur_input_idx = idx;
-    auto res = std::make_shared<messages::monero::MoneroTransactionSetInputRequest>();
+    auto res = std::make_shared<messages::flakechain::FlakeChainTransactionSetInputRequest>();
     translate_src_entry(res->mutable_src_entr(), &(cur_tx().sources[idx]));
     return res;
   }
 
-  void Signer::step_set_input_ack(std::shared_ptr<const messages::monero::MoneroTransactionSetInputAck> ack){
+  void Signer::step_set_input_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionSetInputAck> ack){
     auto & vini_str = ack->vini();
 
     cryptonote::txin_v vini;
@@ -502,26 +502,26 @@ namespace tx {
     });
   }
 
-  std::shared_ptr<messages::monero::MoneroTransactionInputsPermutationRequest> Signer::step_permutation(){
+  std::shared_ptr<messages::flakechain::FlakeChainTransactionInputsPermutationRequest> Signer::step_permutation(){
     sort_ki();
 
     if (in_memory()){
       return nullptr;
     }
 
-    auto res = std::make_shared<messages::monero::MoneroTransactionInputsPermutationRequest>();
+    auto res = std::make_shared<messages::flakechain::FlakeChainTransactionInputsPermutationRequest>();
     assign_to_repeatable(res->mutable_perm(), m_ct.source_permutation.begin(), m_ct.source_permutation.end());
 
     return res;
   }
 
-  void Signer::step_permutation_ack(std::shared_ptr<const messages::monero::MoneroTransactionInputsPermutationAck> ack){
+  void Signer::step_permutation_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionInputsPermutationAck> ack){
     if (in_memory()){
       return;
     }
   }
 
-  std::shared_ptr<messages::monero::MoneroTransactionInputViniRequest> Signer::step_set_vini_input(size_t idx){
+  std::shared_ptr<messages::flakechain::FlakeChainTransactionInputViniRequest> Signer::step_set_vini_input(size_t idx){
     if (in_memory()){
       return nullptr;
     }
@@ -531,7 +531,7 @@ namespace tx {
 
     m_ct.cur_input_idx = idx;
     auto tx = m_ct.tx_data;
-    auto res = std::make_shared<messages::monero::MoneroTransactionInputViniRequest>();
+    auto res = std::make_shared<messages::flakechain::FlakeChainTransactionInputViniRequest>();
     auto & vini = m_ct.tx.vin[idx];
     translate_src_entry(res->mutable_src_entr(), &(tx.sources[idx]));
     res->set_vini(cryptonote::t_serializable_object_to_blob(vini));
@@ -546,17 +546,17 @@ namespace tx {
     return res;
   }
 
-  void Signer::step_set_vini_input_ack(std::shared_ptr<const messages::monero::MoneroTransactionInputViniAck> ack){
+  void Signer::step_set_vini_input_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionInputViniAck> ack){
     if (in_memory()){
       return;
     }
   }
 
-  std::shared_ptr<messages::monero::MoneroTransactionAllInputsSetRequest> Signer::step_all_inputs_set(){
-    return std::make_shared<messages::monero::MoneroTransactionAllInputsSetRequest>();
+  std::shared_ptr<messages::flakechain::FlakeChainTransactionAllInputsSetRequest> Signer::step_all_inputs_set(){
+    return std::make_shared<messages::flakechain::FlakeChainTransactionAllInputsSetRequest>();
   }
 
-  void Signer::step_all_inputs_set_ack(std::shared_ptr<const messages::monero::MoneroTransactionAllInputsSetAck> ack){
+  void Signer::step_all_inputs_set_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionAllInputsSetAck> ack){
     if (is_offloading()){
       // If offloading, expect rsig configuration.
       if (!ack->has_rsig_data()){
@@ -582,14 +582,14 @@ namespace tx {
     }
   }
 
-  std::shared_ptr<messages::monero::MoneroTransactionSetOutputRequest> Signer::step_set_output(size_t idx){
+  std::shared_ptr<messages::flakechain::FlakeChainTransactionSetOutputRequest> Signer::step_set_output(size_t idx){
     CHECK_AND_ASSERT_THROW_MES(idx < m_ct.tx_data.splitted_dsts.size(), "Invalid transaction index");
     CHECK_AND_ASSERT_THROW_MES(idx < m_ct.tx_out_entr_hmacs.size(), "Invalid transaction index");
 
     m_ct.cur_output_idx = idx;
     m_ct.cur_output_in_batch_idx += 1;   // assumes sequential call to step_set_output()
 
-    auto res = std::make_shared<messages::monero::MoneroTransactionSetOutputRequest>();
+    auto res = std::make_shared<messages::flakechain::FlakeChainTransactionSetOutputRequest>();
     auto & cur_dst = m_ct.tx_data.splitted_dsts[idx];
     translate_dst_entry(res->mutable_dst_entr(), &cur_dst);
     res->set_dst_entr_hmac(m_ct.tx_out_entr_hmacs[idx]);
@@ -642,7 +642,7 @@ namespace tx {
     return res;
   }
 
-  void Signer::step_set_output_ack(std::shared_ptr<const messages::monero::MoneroTransactionSetOutputAck> ack){
+  void Signer::step_set_output_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionSetOutputAck> ack){
     cryptonote::tx_out tx_out;
     rct::rangeSig range_sig{};
     rct::Bulletproof bproof{};
@@ -725,11 +725,11 @@ namespace tx {
     m_ct.cur_output_in_batch_idx = 0;
   }
 
-  std::shared_ptr<messages::monero::MoneroTransactionAllOutSetRequest> Signer::step_all_outs_set(){
-    return std::make_shared<messages::monero::MoneroTransactionAllOutSetRequest>();
+  std::shared_ptr<messages::flakechain::FlakeChainTransactionAllOutSetRequest> Signer::step_all_outs_set(){
+    return std::make_shared<messages::flakechain::FlakeChainTransactionAllOutSetRequest>();
   }
 
-  void Signer::step_all_outs_set_ack(std::shared_ptr<const messages::monero::MoneroTransactionAllOutSetAck> ack, hw::device &hwdev){
+  void Signer::step_all_outs_set_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionAllOutSetAck> ack, hw::device &hwdev){
     m_ct.rv = std::make_shared<rct::rctSig>();
     m_ct.rv->txnFee = ack->rv().txn_fee();
     m_ct.rv->type = static_cast<uint8_t>(ack->rv().rv_type());
@@ -799,7 +799,7 @@ namespace tx {
     }
   }
 
-  std::shared_ptr<messages::monero::MoneroTransactionSignInputRequest> Signer::step_sign_input(size_t idx){
+  std::shared_ptr<messages::flakechain::FlakeChainTransactionSignInputRequest> Signer::step_sign_input(size_t idx){
     m_ct.cur_input_idx = idx;
 
     CHECK_AND_ASSERT_THROW_MES(idx < m_ct.tx_data.sources.size(), "Invalid transaction index");
@@ -808,7 +808,7 @@ namespace tx {
     CHECK_AND_ASSERT_THROW_MES(idx < m_ct.alphas.size(), "Invalid transaction index");
     CHECK_AND_ASSERT_THROW_MES(idx < m_ct.spend_encs.size(), "Invalid transaction index");
 
-    auto res = std::make_shared<messages::monero::MoneroTransactionSignInputRequest>();
+    auto res = std::make_shared<messages::flakechain::FlakeChainTransactionSignInputRequest>();
     translate_src_entry(res->mutable_src_entr(), &(m_ct.tx_data.sources[idx]));
     res->set_vini(cryptonote::t_serializable_object_to_blob(m_ct.tx.vin[idx]));
     res->set_vini_hmac(m_ct.tx_in_hmacs[idx]);
@@ -823,7 +823,7 @@ namespace tx {
     return res;
   }
 
-  void Signer::step_sign_input_ack(std::shared_ptr<const messages::monero::MoneroTransactionSignInputAck> ack){
+  void Signer::step_sign_input_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionSignInputAck> ack){
     rct::mgSig mg;
     if (!cn_deserialize(ack->signature(), mg)){
       throw exc::ProtocolException("Cannot deserialize mg[i]");
@@ -832,12 +832,12 @@ namespace tx {
     m_ct.rv->p.MGs.push_back(mg);
   }
 
-  std::shared_ptr<messages::monero::MoneroTransactionFinalRequest> Signer::step_final(){
+  std::shared_ptr<messages::flakechain::FlakeChainTransactionFinalRequest> Signer::step_final(){
     m_ct.tx.rct_signatures = *(m_ct.rv);
-    return std::make_shared<messages::monero::MoneroTransactionFinalRequest>();
+    return std::make_shared<messages::flakechain::FlakeChainTransactionFinalRequest>();
   }
 
-  void Signer::step_final_ack(std::shared_ptr<const messages::monero::MoneroTransactionFinalAck> ack){
+  void Signer::step_final_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionFinalAck> ack){
     if (m_multisig){
       auto & cout_key = ack->cout_key();
       for(auto & cur : m_ct.couts){

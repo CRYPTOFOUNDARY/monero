@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018, The Monero Project
+// % copyleft %
 //
 // All rights reserved.
 //
@@ -31,7 +31,7 @@
 #include "messages/messages.pb.h"
 #include "messages/messages-common.pb.h"
 #include "messages/messages-management.pb.h"
-#include "messages/messages-monero.pb.h"
+#include "messages/messages-flakechain.pb.h"
 
 using namespace std;
 using namespace hw::trezor;
@@ -45,7 +45,7 @@ namespace trezor
       "hw.trezor.messages.",
       "hw.trezor.messages.common.",
       "hw.trezor.messages.management.",
-      "hw.trezor.messages.monero."
+      "hw.trezor.messages.flakechain."
   };
 
   google::protobuf::Message * MessageMapper::get_message(int wire_number) {
@@ -66,7 +66,7 @@ namespace trezor
     // Each package instantiation so lookup works
     hw::trezor::messages::common::Success::default_instance();
     hw::trezor::messages::management::Cancel::default_instance();
-    hw::trezor::messages::monero::MoneroGetAddress::default_instance();
+    hw::trezor::messages::flakechain::FlakeChainGetAddress::default_instance();
 
     google::protobuf::Descriptor const * desc = nullptr;
     for(const string &text : PACKAGES){
@@ -90,13 +90,13 @@ namespace trezor
 //    // CODEGEN way, fast
 //    switch(wire_number){
 //      case 501:
-//        return new messages::monero::MoneroTransactionSignRequest();
+//        return new messages::flakechain::FlakeChainTransactionSignRequest();
 //      default:
 //        throw std::runtime_error("not implemented");
 //    }
 //
 //    // CODEGEN message -> number: specification
-//    //    messages::MessageType get_message_wire_number(const messages::monero::MoneroTransactionSignRequest * msg) { return 501; }
+//    //    messages::MessageType get_message_wire_number(const messages::flakechain::FlakeChainTransactionSignRequest * msg) { return 501; }
 //    //    messages::MessageType get_message_wire_number(const messages::management::ping * msg)
 //
   }

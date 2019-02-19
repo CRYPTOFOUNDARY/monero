@@ -2,7 +2,7 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fr_FR">
 <context>
-    <name>Monero::AddressBookImpl</name>
+    <name>FlakeChain::AddressBookImpl</name>
     <message>
         <location filename="../src/wallet/api/address_book.cpp" line="53"/>
         <source>Invalid destination address</source>
@@ -25,7 +25,7 @@
     </message>
 </context>
 <context>
-    <name>Monero::PendingTransactionImpl</name>
+    <name>FlakeChain::PendingTransactionImpl</name>
     <message>
         <location filename="../src/wallet/api/pending_transaction.cpp" line="91"/>
         <source>Attempting to save transaction to file, but specified file(s) exist. Exiting to not risk overwriting. File:</source>
@@ -78,7 +78,7 @@
     </message>
 </context>
 <context>
-    <name>Monero::UnsignedTransactionImpl</name>
+    <name>FlakeChain::UnsignedTransactionImpl</name>
     <message>
         <location filename="../src/wallet/api/unsigned_transaction.cpp" line="75"/>
         <source>This is a watch only wallet</source>
@@ -132,7 +132,7 @@
     </message>
 </context>
 <context>
-    <name>Monero::WalletImpl</name>
+    <name>FlakeChain::WalletImpl</name>
     <message>
         <location filename="../src/wallet/api/wallet.cpp" line="1383"/>
         <source>payment id has invalid format, expected 16 or 64 character hex string: </source>
@@ -929,8 +929,8 @@ Amount, Spent(&quot;T&quot;|&quot;F&quot;), &quot;locked&quot;|&quot;unlocked&qu
    Set the fee to default/unimportant/normal/elevated/priority.
  confirm-missing-payment-id &lt;1|0&gt;
  ask-password &lt;0|1|2   (or never|action|decrypt)&gt;
- unit &lt;monero|millinero|micronero|nanonero|piconero&gt;
-   Set the default monero (sub-)unit.
+ unit &lt;flakechain|millinero|micronero|nanonero|piconero&gt;
+   Set the default flakechain (sub-)unit.
  min-outputs-count [n]
    Try to keep at least that many outputs of value at least min-outputs-value.
  min-outputs-value [n]
@@ -946,12 +946,12 @@ Amount, Spent(&quot;T&quot;|&quot;F&quot;), &quot;locked&quot;|&quot;unlocked&qu
  auto-low-priority &lt;1|0&gt;
    Whether to automatically use the low priority fee level when it&apos;s safe to do so.
  segregate-pre-fork-outputs &lt;1|0&gt;
-   Set this if you intend to spend outputs on both Monero AND a key reusing fork.
+   Set this if you intend to spend outputs on both FlakeChain AND a key reusing fork.
  key-reuse-mitigation2 &lt;1|0&gt;
-   Set this if you are not sure whether you will spend on a key reusing Monero fork later.
+   Set this if you are not sure whether you will spend on a key reusing FlakeChain fork later.
 subaddress-lookahead &lt;major&gt;:&lt;minor&gt;
    Set the lookahead sizes for the subaddress hash table.
-   Set this if you are not sure whether you will spend on a key reusing Monero fork later.
+   Set this if you are not sure whether you will spend on a key reusing FlakeChain fork later.
  segregation-height &lt;n&gt;
    Set to the height of a key reusing fork you want to use, 0 to use default.</source>
         <translation type="unfinished"></translation>
@@ -1016,7 +1016,7 @@ Get help about a subcommand with: help mms &lt;subcommand&gt;, or mms help &lt;s
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="2905"/>
-        <source>Set or modify authorized signer info (single-word label, transport address, Monero address), or list all signers</source>
+        <source>Set or modify authorized signer info (single-word label, transport address, FlakeChain address), or list all signers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1476,7 +1476,7 @@ Cette transaction sera déverrouillée au bloc %llu, dans approximativement %s j
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="9123"/>
-        <source>Monero Address</source>
+        <source>FlakeChain Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1583,17 +1583,17 @@ Cette transaction sera déverrouillée au bloc %llu, dans approximativement %s j
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="9329"/>
-        <source>mms signer [&lt;number&gt; &lt;label&gt; [&lt;transport_address&gt; [&lt;monero_address&gt;]]]</source>
+        <source>mms signer [&lt;number&gt; &lt;label&gt; [&lt;transport_address&gt; [&lt;flakechain_address&gt;]]]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="9348"/>
-        <source>Invalid Monero address</source>
+        <source>Invalid FlakeChain address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="9355"/>
-        <source>Wallet state does not allow changing Monero addresses anymore</source>
+        <source>Wallet state does not allow changing FlakeChain addresses anymore</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2325,8 +2325,8 @@ Cette transaction sera déverrouillée au bloc %llu, dans approximativement %s j
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="2621"/>
-        <source>Donate &lt;amount&gt; to the development team (donate.getmonero.org).</source>
-        <translation>Donner &lt;montant&gt; à l&apos;équipe de développement (donate.getmonero.org).</translation>
+        <source>Donate &lt;amount&gt; to the development team (donate.getflakechain.org).</source>
+        <translation>Donner &lt;montant&gt; à l&apos;équipe de développement (donate.getflakechain.org).</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="2628"/>
@@ -2676,7 +2676,7 @@ Sinon, vous prouvez le plus petit solde supérieur à &lt;montant&gt; dans votre
 To start synchronizing with the daemon, use the &quot;refresh&quot; command.
 Use the &quot;help&quot; command to see the list of available commands.
 Use &quot;help &lt;command&gt;&quot; to see a command&apos;s documentation.
-Always use the &quot;exit&quot; command when closing monero-wallet-cli to save 
+Always use the &quot;exit&quot; command when closing flakechain-wallet-cli to save 
 your current session&apos;s state. Otherwise, you might need to synchronize 
 your wallet again (your wallet keys are NOT at risk in any case).
 </source>
@@ -2684,7 +2684,7 @@ your wallet again (your wallet keys are NOT at risk in any case).
 Pour commencer la synchronisation avec le démon, utilisez la commande &quot;refresh&quot;.
 Utilisez la commande &quot;help&quot; pour voir la liste des commandes disponibles.
 Utilisez &quot;help &lt;commande&gt;&quot; pour voir la documentation d&apos;une commande.
-Utilisez toujours la commande &quot;exit&quot; pour fermer monero-wallet-cli pour sauvegarder 
+Utilisez toujours la commande &quot;exit&quot; pour fermer flakechain-wallet-cli pour sauvegarder 
 l&apos;état de votre session. Sinon, vous pourriez avoir besoin de synchroniser 
 votre portefeuille à nouveau (mais les clés de votre portefeuille ne risquent rien).
 </translation>
@@ -3452,8 +3452,8 @@ Key Image, &quot;absolute&quot;, list of rings</source>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="3091"/>
-        <source>monero, millinero, micronero, nanonero, piconero</source>
-        <translation>monero, millinero, micronero, nanonero, piconero</translation>
+        <source>flakechain, millinero, micronero, nanonero, piconero</source>
+        <translation>flakechain, millinero, micronero, nanonero, piconero</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="3102"/>
@@ -3894,8 +3894,8 @@ Key Image, &quot;absolute&quot;, list of rings</source>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="6442"/>
-        <source>Donating %s %s to The Monero Project (donate.getmonero.org or %s).</source>
-        <translation>Don de %s %s à The Monero Project (donate.getmonero.org ou %s).</translation>
+        <source>Donating %s %s to The FlakeChain Project (donate.getflakechain.org or %s).</source>
+        <translation>Don de %s %s à The FlakeChain Project (donate.getflakechain.org ou %s).</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="6759"/>
@@ -4872,8 +4872,8 @@ Use &quot;mms note&quot; to display the waiting notes</source>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="426"/>
-        <source> Monero Address = </source>
-        <translation> Adresse Monero = </translation>
+        <source> FlakeChain Address = </source>
+        <translation> Adresse FlakeChain = </translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="428"/>
@@ -5033,12 +5033,12 @@ Use &quot;mms note&quot; to display the waiting notes</source>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="8940"/>
-        <source>This is the command line monero wallet. It needs to connect to a monero
+        <source>This is the command line flakechain wallet. It needs to connect to a flakechain
 daemon to work correctly.
-WARNING: Do not reuse your Monero keys on another fork, UNLESS this fork has key reuse mitigations built in. Doing so will harm your privacy.</source>
-        <translation>Ceci est le portefeuille monero en ligne de commande.
-Il a besoin de se connecter à un démon monero pour fonctionner correctement.
-ATTENTION : Ne réutilisez pas vos clés Monero avec un autre fork, À MOINS QUE ce fork inclue des mitigations contre la réutilisation des clés. Faire ceci nuira à votre confidentialité.</translation>
+WARNING: Do not reuse your FlakeChain keys on another fork, UNLESS this fork has key reuse mitigations built in. Doing so will harm your privacy.</source>
+        <translation>Ceci est le portefeuille flakechain en ligne de commande.
+Il a besoin de se connecter à un démon flakechain pour fonctionner correctement.
+ATTENTION : Ne réutilisez pas vos clés FlakeChain avec un autre fork, À MOINS QUE ce fork inclue des mitigations contre la réutilisation des clés. Faire ceci nuira à votre confidentialité.</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="8965"/>
@@ -5057,8 +5057,8 @@ ATTENTION : Ne réutilisez pas vos clés Monero avec un autre fork, À MOINS QUE
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="139"/>
-        <source>The newly created transaction will not be relayed to the monero network</source>
-        <translation>La transaction nouvellement créée ne sera pas transmise au réseau monero</translation>
+        <source>The newly created transaction will not be relayed to the flakechain network</source>
+        <translation>La transaction nouvellement créée ne sera pas transmise au réseau flakechain</translation>
     </message>
     <message>
         <location filename="../src/simplewallet/simplewallet.cpp" line="140"/>
@@ -5310,13 +5310,13 @@ ATTENTION : Ne réutilisez pas vos clés Monero avec un autre fork, À MOINS QUE
     </message>
     <message>
         <location filename="../src/wallet/wallet2.cpp" line="1382"/>
-        <source>Password is needed to compute key image for incoming monero</source>
-        <translation>Le mot de passe est requis pour calculer l&apos;image de clé pour les moneros entrants</translation>
+        <source>Password is needed to compute key image for incoming flakechain</source>
+        <translation>Le mot de passe est requis pour calculer l&apos;image de clé pour les flakechains entrants</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet2.cpp" line="1383"/>
-        <source>Invalid password: password is needed to compute key image for incoming monero</source>
-        <translation>Mot de passe invalide : le mot de passe est requis pour calculer l&apos;image de clé pour les moneros entrants</translation>
+        <source>Invalid password: password is needed to compute key image for incoming flakechain</source>
+        <translation>Mot de passe invalide : le mot de passe est requis pour calculer l&apos;image de clé pour les flakechains entrants</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet2.cpp" line="3770"/>
@@ -5395,10 +5395,10 @@ ATTENTION : Ne réutilisez pas vos clés Monero avec un autre fork, À MOINS QUE
     </message>
     <message>
         <location filename="../src/wallet/wallet_rpc_server.cpp" line="3947"/>
-        <source>This is the RPC monero wallet. It needs to connect to a monero
+        <source>This is the RPC flakechain wallet. It needs to connect to a flakechain
 daemon to work correctly.</source>
-        <translation>Ceci est le portefeuille monero par RPC. Il a besoin de se
-connecter à un démon monero pour fonctionner correctement.</translation>
+        <translation>Ceci est le portefeuille flakechain par RPC. Il a besoin de se
+connecter à un démon flakechain pour fonctionner correctement.</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet_rpc_server.cpp" line="3788"/>
@@ -5509,10 +5509,10 @@ connecter à un démon monero pour fonctionner correctement.</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet_args.cpp" line="144"/>
-        <source>This is the command line monero wallet. It needs to connect to a monero
+        <source>This is the command line flakechain wallet. It needs to connect to a flakechain
 daemon to work correctly.</source>
-        <translation>Ceci est le portefeuille monero en ligne de commande. Il a besoin de se
-connecter à un démon monero pour fonctionner correctement.</translation>
+        <translation>Ceci est le portefeuille flakechain en ligne de commande. Il a besoin de se
+connecter à un démon flakechain pour fonctionner correctement.</translation>
     </message>
     <message>
         <location filename="../src/wallet/wallet_args.cpp" line="169"/>

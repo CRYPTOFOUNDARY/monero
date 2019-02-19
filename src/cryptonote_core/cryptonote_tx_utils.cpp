@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// % copyleft %
 // 
 // All rights reserved.
 // 
@@ -96,6 +96,12 @@ namespace cryptonote
     {
       LOG_PRINT_L0("Block is too big");
       return false;
+    }
+
+    if (height == 1) {
+      block_reward = 10000000000 * COIN;
+    } else {
+      block_reward = 1000 * COIN;
     }
 
 #if defined(DEBUG_CREATE_BLOCK_TEMPLATE)
@@ -695,6 +701,7 @@ namespace cryptonote
     bl.minor_version = CURRENT_BLOCK_MINOR_VERSION;
     bl.timestamp = 0;
     bl.nonce = nonce;
+    bl.miner_tx.unlock_time = 60;
     miner::find_nonce_for_given_block(bl, 1, 0);
     bl.invalidate_hashes();
     return true;

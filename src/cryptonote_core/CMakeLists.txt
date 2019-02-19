@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2018, The Monero Project
+# % copyleft %
 #
 # All rights reserved.
 #
@@ -41,9 +41,9 @@ set(cryptonote_core_private_headers
   tx_pool.h
   cryptonote_tx_utils.h)
 
-monero_private_headers(cryptonote_core
+flakechain_private_headers(cryptonote_core
   ${cryptonote_core_private_headers})
-monero_add_library(cryptonote_core
+flakechain_add_library(cryptonote_core
   ${cryptonote_core_sources}
   ${cryptonote_core_headers}
   ${cryptonote_core_private_headers})

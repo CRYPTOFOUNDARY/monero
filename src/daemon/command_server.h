@@ -9,7 +9,7 @@ Passing RPC commands:
 
 */
 
-// Copyright (c) 2014-2018, The Monero Project
+// % copyleft %
 // 
 // All rights reserved.
 // 

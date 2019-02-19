@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// % copyleft %
 //
 // All rights reserved.
 //
@@ -33,7 +33,7 @@
 #include "net/http_client.h"
 #include <string>
 
-namespace Monero {
+namespace FlakeChain {
 
 class WalletManagerImpl : public WalletManager
 {
@@ -101,4 +101,4 @@ private:
 
 } // namespace
 
-namespace Bitmonero = Monero;
+namespace Bitflakechain = FlakeChain;

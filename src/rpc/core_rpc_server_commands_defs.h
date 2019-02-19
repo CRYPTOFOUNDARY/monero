@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2018, The Monero Project
+// % copyleft %
 // 
 // All rights reserved.
 // 
@@ -308,7 +308,7 @@ namespace cryptonote
       {
         //std::list<std::string> txs_as_json;
         uint64_t total_received;
-        uint64_t total_received_unlocked = 0; // OpenMonero only
+        uint64_t total_received_unlocked = 0; // OpenFlakeChain only
         uint64_t scanned_height;
         std::vector<transaction> transactions;
         uint64_t blockchain_height;
@@ -392,7 +392,7 @@ namespace cryptonote
         std::string amount;
         std::string address;
         std::string view_key;
-        // OpenMonero specific
+        // OpenFlakeChain specific
         uint64_t mixin;
         bool use_dust;
         std::string dust_threshold;

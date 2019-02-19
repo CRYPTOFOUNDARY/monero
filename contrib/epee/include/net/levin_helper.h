@@ -32,8 +32,8 @@
 #include "serializeble_struct_helper.h"
 #include "int-util.h"
 
-#undef MONERO_DEFAULT_LOG_CATEGORY
-#define MONERO_DEFAULT_LOG_CATEGORY "net"
+#undef FLAKECHAIN_DEFAULT_LOG_CATEGORY
+#define FLAKECHAIN_DEFAULT_LOG_CATEGORY "net"
 
 namespace epee
 {

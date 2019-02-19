@@ -1,4 +1,4 @@
-	// Copyright (c) 2014-2018, The Monero Project
+	// % copyleft %
 // 
 // All rights reserved.
 // 
@@ -97,7 +97,7 @@ namespace boost
     {
       const size_t length = std::strlen(na.host_str());
       if (length > 255)
-        MONERO_THROW(net::error::invalid_tor_address, "Tor address too long");
+        FLAKECHAIN_THROW(net::error::invalid_tor_address, "Tor address too long");
 
       const uint16_t port{na.port()};
       const uint8_t len = length;
@@ -115,7 +115,7 @@ namespace boost
       a & length;
 
       if (length > net::tor_address::buffer_size())
-        MONERO_THROW(net::error::invalid_tor_address, "Tor address too long");
+        FLAKECHAIN_THROW(net::error::invalid_tor_address, "Tor address too long");
 
       char host[net::tor_address::buffer_size()] = {0};
       a.load_binary(host, length);
@@ -124,7 +124,7 @@ namespace boost
       if (std::strcmp(host, net::tor_address::unknown_str()) == 0)
         na = net::tor_address::unknown();
       else
-        na = MONERO_UNWRAP(net::tor_address::make(host, port));
+        na = FLAKECHAIN_UNWRAP(net::tor_address::make(host, port));
     }
 
     template <class Archive, class ver_type>

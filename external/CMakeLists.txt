@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2018, The Monero Project
+# % copyleft %
 # 
 # All rights reserved.
 # 
@@ -80,3 +80,4 @@ endif()
 
 add_subdirectory(db_drivers)
 add_subdirectory(easylogging++)
+add_subdirectory(spdlog)

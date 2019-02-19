@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018, The Monero Project
+// % copyleft %
 //
 // All rights reserved.
 //
@@ -27,8 +27,8 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#ifndef MONERO_PROTOCOL_H
-#define MONERO_PROTOCOL_H
+#ifndef FLAKECHAIN_PROTOCOL_H
+#define FLAKECHAIN_PROTOCOL_H
 
 #include "trezor_defs.hpp"
 #include "device/device_cold.hpp"
@@ -105,52 +105,52 @@ namespace chacha {
 // Cold Key image sync
 namespace ki {
 
-  using MoneroTransferDetails = messages::monero::MoneroKeyImageSyncStepRequest_MoneroTransferDetails;
-  using MoneroSubAddressIndicesList = messages::monero::MoneroKeyImageExportInitRequest_MoneroSubAddressIndicesList;
-  using MoneroExportedKeyImage = messages::monero::MoneroKeyImageSyncStepAck_MoneroExportedKeyImage;
+  using FlakeChainTransferDetails = messages::flakechain::FlakeChainKeyImageSyncStepRequest_FlakeChainTransferDetails;
+  using FlakeChainSubAddressIndicesList = messages::flakechain::FlakeChainKeyImageExportInitRequest_FlakeChainSubAddressIndicesList;
+  using FlakeChainExportedKeyImage = messages::flakechain::FlakeChainKeyImageSyncStepAck_FlakeChainExportedKeyImage;
   using exported_key_image = hw::device_cold::exported_key_image;
 
   /**
-   * Converts transfer details to the MoneroTransferDetails required for KI sync
+   * Converts transfer details to the FlakeChainTransferDetails required for KI sync
    */
   bool key_image_data(wallet_shim * wallet,
                       const std::vector<tools::wallet2::transfer_details> & transfers,
-                      std::vector<MoneroTransferDetails> & res);
+                      std::vector<FlakeChainTransferDetails> & res);
 
   /**
-   * Computes a hash over MoneroTransferDetails. Commitment used in the KI sync.
+   * Computes a hash over FlakeChainTransferDetails. Commitment used in the KI sync.
    */
-  std::string compute_hash(const MoneroTransferDetails & rr);
+  std::string compute_hash(const FlakeChainTransferDetails & rr);
 
   /**
    * Generates KI sync request with commitments computed.
    */
-  void generate_commitment(std::vector<MoneroTransferDetails> & mtds,
+  void generate_commitment(std::vector<FlakeChainTransferDetails> & mtds,
                            const std::vector<tools::wallet2::transfer_details> & transfers,
-                           std::shared_ptr<messages::monero::MoneroKeyImageExportInitRequest> & req);
+                           std::shared_ptr<messages::flakechain::FlakeChainKeyImageExportInitRequest> & req);
 
 }
 
 // Cold transaction signing
 namespace tx {
-  using TsxData = messages::monero::MoneroTransactionInitRequest_MoneroTransactionData;
-  using MoneroTransactionDestinationEntry = messages::monero::MoneroTransactionDestinationEntry;
-  using MoneroAccountPublicAddress = messages::monero::MoneroTransactionDestinationEntry_MoneroAccountPublicAddress;
-  using MoneroTransactionSourceEntry = messages::monero::MoneroTransactionSourceEntry;
-  using MoneroMultisigKLRki = messages::monero::MoneroTransactionSourceEntry_MoneroMultisigKLRki;
-  using MoneroOutputEntry = messages::monero::MoneroTransactionSourceEntry_MoneroOutputEntry;
-  using MoneroRctKey = messages::monero::MoneroTransactionSourceEntry_MoneroOutputEntry_MoneroRctKeyPublic;
-  using MoneroRsigData = messages::monero::MoneroTransactionRsigData;
+  using TsxData = messages::flakechain::FlakeChainTransactionInitRequest_FlakeChainTransactionData;
+  using FlakeChainTransactionDestinationEntry = messages::flakechain::FlakeChainTransactionDestinationEntry;
+  using FlakeChainAccountPublicAddress = messages::flakechain::FlakeChainTransactionDestinationEntry_FlakeChainAccountPublicAddress;
+  using FlakeChainTransactionSourceEntry = messages::flakechain::FlakeChainTransactionSourceEntry;
+  using FlakeChainMultisigKLRki = messages::flakechain::FlakeChainTransactionSourceEntry_FlakeChainMultisigKLRki;
+  using FlakeChainOutputEntry = messages::flakechain::FlakeChainTransactionSourceEntry_FlakeChainOutputEntry;
+  using FlakeChainRctKey = messages::flakechain::FlakeChainTransactionSourceEntry_FlakeChainOutputEntry_FlakeChainRctKeyPublic;
+  using FlakeChainRsigData = messages::flakechain::FlakeChainTransactionRsigData;
 
   using tx_construction_data = tools::wallet2::tx_construction_data;
   using unsigned_tx_set = tools::wallet2::unsigned_tx_set;
 
-  void translate_address(MoneroAccountPublicAddress * dst, const cryptonote::account_public_address * src);
-  void translate_dst_entry(MoneroTransactionDestinationEntry * dst, const cryptonote::tx_destination_entry * src);
-  void translate_src_entry(MoneroTransactionSourceEntry * dst, const cryptonote::tx_source_entry * src);
-  void translate_klrki(MoneroMultisigKLRki * dst, const rct::multisig_kLRki * src);
-  void translate_rct_key(MoneroRctKey * dst, const rct::ctkey * src);
-  std::string hash_addr(const MoneroAccountPublicAddress * addr, boost::optional<uint64_t> amount = boost::none, boost::optional<bool> is_subaddr = boost::none);
+  void translate_address(FlakeChainAccountPublicAddress * dst, const cryptonote::account_public_address * src);
+  void translate_dst_entry(FlakeChainTransactionDestinationEntry * dst, const cryptonote::tx_destination_entry * src);
+  void translate_src_entry(FlakeChainTransactionSourceEntry * dst, const cryptonote::tx_source_entry * src);
+  void translate_klrki(FlakeChainMultisigKLRki * dst, const rct::multisig_kLRki * src);
+  void translate_rct_key(FlakeChainRctKey * dst, const rct::ctkey * src);
+  std::string hash_addr(const FlakeChainAccountPublicAddress * addr, boost::optional<uint64_t> amount = boost::none, boost::optional<bool> is_subaddr = boost::none);
   std::string hash_addr(const std::string & spend_key, const std::string & view_key, boost::optional<uint64_t> amount = boost::none, boost::optional<bool> is_subaddr = boost::none);
   std::string hash_addr(const ::crypto::public_key * spend_key, const ::crypto::public_key * view_key, boost::optional<uint64_t> amount = boost::none, boost::optional<bool> is_subaddr = boost::none);
 
@@ -167,7 +167,7 @@ namespace tx {
     bool in_memory;
     unsigned rsig_type;
     std::vector<uint64_t> grouping_vct;
-    std::shared_ptr<MoneroRsigData> rsig_param;
+    std::shared_ptr<FlakeChainRsigData> rsig_param;
     size_t cur_input_idx;
     size_t cur_output_idx;
     size_t cur_batch_idx;
@@ -219,33 +219,33 @@ namespace tx {
   public:
     Signer(wallet_shim * wallet2, const unsigned_tx_set * unsigned_tx, size_t tx_idx = 0, hw::tx_aux_data * aux_data = nullptr);
 
-    std::shared_ptr<messages::monero::MoneroTransactionInitRequest> step_init();
-    void step_init_ack(std::shared_ptr<const messages::monero::MoneroTransactionInitAck> ack);
+    std::shared_ptr<messages::flakechain::FlakeChainTransactionInitRequest> step_init();
+    void step_init_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionInitAck> ack);
 
-    std::shared_ptr<messages::monero::MoneroTransactionSetInputRequest> step_set_input(size_t idx);
-    void step_set_input_ack(std::shared_ptr<const messages::monero::MoneroTransactionSetInputAck> ack);
+    std::shared_ptr<messages::flakechain::FlakeChainTransactionSetInputRequest> step_set_input(size_t idx);
+    void step_set_input_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionSetInputAck> ack);
 
     void sort_ki();
-    std::shared_ptr<messages::monero::MoneroTransactionInputsPermutationRequest> step_permutation();
-    void step_permutation_ack(std::shared_ptr<const messages::monero::MoneroTransactionInputsPermutationAck> ack);
+    std::shared_ptr<messages::flakechain::FlakeChainTransactionInputsPermutationRequest> step_permutation();
+    void step_permutation_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionInputsPermutationAck> ack);
 
-    std::shared_ptr<messages::monero::MoneroTransactionInputViniRequest> step_set_vini_input(size_t idx);
-    void step_set_vini_input_ack(std::shared_ptr<const messages::monero::MoneroTransactionInputViniAck> ack);
+    std::shared_ptr<messages::flakechain::FlakeChainTransactionInputViniRequest> step_set_vini_input(size_t idx);
+    void step_set_vini_input_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionInputViniAck> ack);
 
-    std::shared_ptr<messages::monero::MoneroTransactionAllInputsSetRequest> step_all_inputs_set();
-    void step_all_inputs_set_ack(std::shared_ptr<const messages::monero::MoneroTransactionAllInputsSetAck> ack);
+    std::shared_ptr<messages::flakechain::FlakeChainTransactionAllInputsSetRequest> step_all_inputs_set();
+    void step_all_inputs_set_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionAllInputsSetAck> ack);
 
-    std::shared_ptr<messages::monero::MoneroTransactionSetOutputRequest> step_set_output(size_t idx);
-    void step_set_output_ack(std::shared_ptr<const messages::monero::MoneroTransactionSetOutputAck> ack);
+    std::shared_ptr<messages::flakechain::FlakeChainTransactionSetOutputRequest> step_set_output(size_t idx);
+    void step_set_output_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionSetOutputAck> ack);
 
-    std::shared_ptr<messages::monero::MoneroTransactionAllOutSetRequest> step_all_outs_set();
-    void step_all_outs_set_ack(std::shared_ptr<const messages::monero::MoneroTransactionAllOutSetAck> ack, hw::device &hwdev);
+    std::shared_ptr<messages::flakechain::FlakeChainTransactionAllOutSetRequest> step_all_outs_set();
+    void step_all_outs_set_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionAllOutSetAck> ack, hw::device &hwdev);
 
-    std::shared_ptr<messages::monero::MoneroTransactionSignInputRequest> step_sign_input(size_t idx);
-    void step_sign_input_ack(std::shared_ptr<const messages::monero::MoneroTransactionSignInputAck> ack);
+    std::shared_ptr<messages::flakechain::FlakeChainTransactionSignInputRequest> step_sign_input(size_t idx);
+    void step_sign_input_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionSignInputAck> ack);
 
-    std::shared_ptr<messages::monero::MoneroTransactionFinalRequest> step_final();
-    void step_final_ack(std::shared_ptr<const messages::monero::MoneroTransactionFinalAck> ack);
+    std::shared_ptr<messages::flakechain::FlakeChainTransactionFinalRequest> step_final();
+    void step_final_ack(std::shared_ptr<const messages::flakechain::FlakeChainTransactionFinalAck> ack);
 
     std::string store_tx_aux_info();
 
@@ -297,4 +297,4 @@ namespace tx {
 }
 
 
-#endif //MONERO_PROTOCOL_H
+#endif //FLAKECHAIN_PROTOCOL_H
